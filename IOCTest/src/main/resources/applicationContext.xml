@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- <bean id = "engine" class = "entities.Engine"/>
+    <bean id="Tire" class="entities.Tire"/>
+    <bean id="car" class="entities.Car">
+        <property name="engine" ref="engine"/>
+        <property name="tire" ref="Tire"/>
+    </bean> -->
+
+    <bean id = "autoEngine" class = "entities2.impl.AutoEngine"/>
+    <bean id = "manaulEngine" class="entities2.impl.ManaulEngine"/>
+    <bean id = "tire15" class = "entities2.impl.Tire15"/>
+    <bean id = "tire18" class = "entities2.impl.Tire18"/>
+
+    <!-- <bean id = "car15auto" class = "entities2.impl.CarTE" p:engine-ref = "autoEngine" p:tire-ref = "tire15"/>
+    <bean id = "car18auto" class = "entities2.impl.CarTE" p:engine-ref = "autoEngine" p:tire-ref = "tire18"/> -->
+
+    <bean id="car15auto" class="entities2.impl.CarTE">
+        <constructor-arg ref="autoEngine" index="0"/>
+        <constructor-arg ref="tire15" index="1"/>
+    </bean>
+
+    <bean id="car18auto" class="entities2.impl.CarTE">
+        <constructor-arg ref="autoEngine" index="0"/>
+        <constructor-arg ref="tire18" index="1"/>
+    </bean>
+
+    <bean id="countnum" class="entities2.impl.Count" scope="prototype"/>
+
+</beans>

@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="entities.Empt" table="empt" schema="people">
+        <id name="empno" type="java.lang.Integer">
+            <column name="empno"/>
+            <generator class="increment"/>
+        </id>
+        <property name="ename" column="ename"/>
+        <property name="job" column="job"/>
+        <property name="mgr" column="mgr"/>
+        <property name="hiredate" column="hiredate"/>
+        <property name="sal" column="sal"/>
+        <property name="comm" column="comm"/>
+
+        <!-- 双向一对多以及单向多对一 -->
+        <many-to-one name = "dept" class = "entities.User">
+            <column name = "dno" precision = "2" scale = "0"/>
+        </many-to-one>
+    </class>
+</hibernate-mapping>

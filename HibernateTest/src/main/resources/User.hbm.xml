@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="entities.User" table="dept" schema="people">
+        <id name="dno" type="java.lang.Integer">
+            <column name="dno"/>
+            <generator class="increment"/>
+        </id>
+        <property name="dname" column="dname"/>
+        <property name="loc" column="loc"/>
+
+        <!-- 单向一对多关联 -->
+        <!-- 双向一对多关联，通过cascade属性设置“级联”操作 -->
+        <set name = "emps" inverse = "true" cascade = "save-update">
+            <key>
+                <column name = "dno" precision = "2" scale = "0"></column>
+            </key>
+            <one-to-many class = "entities.Empt"></one-to-many>
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC 
+"-//Apache Software Foundation//DTD Struts Configuration 2.5//EN" 
+"http://struts.apache.org/dtds/struts-2.5.dtd">
+
+
+<struts>
+    <package name="default" namespace="/" extends="struts-default">
+        <!-- <action name="login" class="controller.LoginAction">
+            <result name="success">index.jsp</result>
+            <result name="error">error.jsp</result>
+        </action> -->
+
+        <!-- 第一种拦截器方法 -->
+        <!-- <interceptors>
+            <interceptor name="mytimer" class="controller.MyInterceptor"></interceptor>
+        </interceptors>
+        
+        <action name="login" class="controller.LoginAction">
+            <interceptor-ref name="defaultStack"></interceptor-ref>
+            <interceptor-ref name="mytimer"></interceptor-ref>
+            <result name="success">index.jsp</result>
+            <result name="error">error.jsp</result>
+        </action> -->
+        <!-- 第二种拦截器方法 -->
+        <interceptors>
+            <interceptor name="mytimer" class="controller.MyInterceptor"></interceptor>
+
+            <interceptor name="mytimer2" class="controller.MyInterceptor2"></interceptor>
+
+            <interceptor-stack name="mydefaultStack">
+                <!-- 默认拦截器栈 -->
+                <interceptor-ref name="defaultStack"></interceptor-ref>
+                <!-- 引用拦截器1 -->
+                <interceptor-ref name="mytimer"></interceptor-ref>
+
+                <!-- 引用拦截器2 -->
+                <interceptor-ref name="mytimer2"></interceptor-ref>
+            </interceptor-stack>
+        </interceptors>
+
+        <default-interceptor-ref name="mydefaultStack"></default-interceptor-ref>
+
+
+        <action name="login" class="controller.LoginAction">
+            <result name="success">index.jsp</result>
+            <result name="error">error.jsp</result>
+        </action>
+    </package>
+</struts>

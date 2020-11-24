@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC 
+"-//Apache Software Foundation//DTD Struts Configuration 2.5//EN" 
+"http://struts.apache.org/dtds/struts-2.5.dtd">
+
+
+<struts>
+    <constant name="struts.i18n.encoding" value="UTF-8"></constant>
+    <constant name="struts.enable.DynamicMethodInvocation" value="true" />
+    <package name="default" namespace="/" extends="struts-default">
+        <!-- <global-allowed-methods>add</global-allowed-methods> -->
+        <action name="login" class="controller.loginAction">
+        <!-- <action name="login" class="controller.loginAction" method="add"> -->
+        <!-- <action name="*Action" class="controller.loginAction" method="{1}"> -->
+            <result name="success">success.jsp</result>
+            <result name="error">error.jsp</result>
+        </action>
+        
+        <action name="fileUpload" class="controller.uploadFileAction" method="uploadFile">
+            <interceptor-ref name="fileUpload">
+                <param name="allowedTypes">
+                    image/jpeg,image/png,image/jpg
+                </param>
+                <param name="maximumSize">1024576</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>
+
+            <param name = "savePath">/upload</param>
+            <result name = "success">/uploadFile.jsp</result>
+            <result name = "input">/uploadFile.jsp</result>
+        </action>
+
+        <action name="fileUpload2" class="controller.uploadAction2" method="fileUpload">
+            <interceptor-ref name="fileUpload">
+                <param name = "allowedTypes">image/jpeg,image/png,image/jpg</param>
+                <param name = "maximumSize">1024576</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>
+            <param name = "savePath">/upload</param>
+            <result name = "success">/uploadFile2.jsp</result>
+            <result name = "input">/uploadFile2.jsp</result>
+        </action>
+
+        <action name = "downFile" class = "controller.uploadAction3">
+            <param name = "inputPath">/upload</param>
+            <result name = "success" type = "stream">
+                <param name = "contentType">application/octet-stream</param>
+                <param name = "inputStream">inputStream</param>
+
+                <!--attachment:附件-->
+                <param name = "contentDisposition">attachment;filename="${fileName}"</param>
+                <param name = "bufferSize">4096</param>
+            </result>
+        </action>
+
+        <action name = "showdata" class = "controller.showAction">
+            <result name = "success">ognl.jsp</result>
+        </action>
+    </package>
+</struts>

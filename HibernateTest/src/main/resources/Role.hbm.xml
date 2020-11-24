@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="entities.Role" table="role" schema="people">
+        <id name="rid" type="java.lang.Integer">
+            <column name="rid"/>
+            <generator class="increment"/>
+        </id>
+        <property name="rname" column="rname"/>
+
+        <!-- 双向多对多 -->
+        <set name = "privilege" table = "t_privilege_role" cascade = "save-update">
+            <key>
+                <column name = "rid" precision = "8" scale = "0"/>
+            </key>
+
+            <many-to-many entity-name = "entities.Privilege">
+                <column name = "pid" precision = "8" scale = "0"/>
+            </many-to-many>
+        </set>
+    </class>
+</hibernate-mapping>

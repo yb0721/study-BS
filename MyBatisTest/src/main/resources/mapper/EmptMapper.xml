@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+                PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    <mapper namespace="entities">
+        <!-- <select id="listEmpt" resultType="Empt">
+            select * from empt;
+        </select> -->
+
+        <!-- 新增 -->
+        <!-- <insert id = "addEmpt" parameterType = "Empt">
+            insert into empt(ename) values(#{ename})
+        </insert> -->
+
+        <!-- 删除 -->
+        <!-- <delete id = "deleteEmpt" parameterType = "Empt">
+            delete from empt where empno= #{empno}
+        </delete> -->
+
+        <!-- 根据条件查询 -->
+        <!-- <select id = "getEmpt" parameterType = "_int" resultType = "Empt">
+            select * from empt where empno= #{empno}
+        </select> -->
+
+        <!-- 修改 -->
+        <!-- <update id = "updateEmpt" parameterType = "Empt">
+            update empt set ename=#{ename} where empno=#{empno}
+        </update> -->
+
+        <!-- 模糊查询 -->
+        <!-- <select id = "listEmptByName" parameterType = "String" resultType = "Empt">
+            select * from empt where ename like concat('%', #{0}, '%')
+        </select> -->
+
+        <!-- 多条件查询 -->
+        <!-- <select id = "listEmptByNameANDbyID" parameterType = "map" resultType = "Empt">
+            select * from empt where empno = #{empno} and ename like concat('%', #{ename}, '%')
+        </select> -->
+
+        <!-- 多对一关系 -->
+        <resultMap id = "Emptbean" type = "Empt">
+            <id property = "empno" column = "empno"/>
+            <result property = "ename" column = "ename"/>
+            
+            <association property = "depts" javaType = "Dept">
+                <id property = "dno" column = "dno"/>
+                <result property = "dname" column = "dname"/>
+            </association>
+        </resultMap>
+
+        <!-- 左连接是保存左边的数据信息 -->
+        <select id = "listEmpt" resultMap = "Emptbean">
+            select * from dept d left join empt e on d.dno = e.dno
+        </select>
+
+        <select id = "listEmp" parameterType = "String" resultType = "Empt">
+            select * from empt 
+                <if test = "ename != null">
+                    where ename=#{ename}
+                </if>
+        </select>
+    </mapper>
+
